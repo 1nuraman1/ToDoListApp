@@ -1,17 +1,30 @@
 <div class="container shadow">
 
-  <h1>{{ title }}</h1>
+  <h1>ToDoList</h1>
   
   <div class="input-group p-4 shadow nuke">
-    <input type="text" class="form-control" placeholder="Enter task" #task>
-    <button class="btn btn-outline-primary" type="button" (click)="addTask(task.value)">+</button>
+    <input type="text" class="form-control" placeholder="Enter task" #taskInput>
+    <button class="btn btn-outline-primary" type="button" (click)="addTask(taskInput)">+</button>
   </div>
 
   <h2 class="p-4" style="text-align: left;">Tasks :</h2>
 
-  <ul  *ngFor="let item of list">
-    <li>{{item.name}}</li><button class="btn btn-outline-danger float-right" (click)="deleteTask(item.id)">delete</button>
-  </ul>
+  <ul  *ngFor="let task of tasks; let idx = index">
+    <li *ngIf="task.is_canceled; else elseTd">
+      <s>{{ idx + 1 }}. {{task.title}}</s>
+    </li>
+      <ng-template #elseTd>
+        <li>{{ idx + 1 }}. {{task.title}}</li>
+      </ng-template>
+
+    
+      <button class="btn btn-primary btn-xs" (click)="editTask(idx)"> Edit </button>
+    
+      <button class="btn btn-outline-danger float-right" (click)="deleteTask(idx)">delete</button>
+      
+    
+    
+    </ul>
 
 
 
